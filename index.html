@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Registration</title>
+
+    <!-- google font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      html,
+      body {
+        height: auto;
+      }
+      body {
+        padding: 0%;
+        height: auto;
+        background: white;
+      }
+      #box {
+        width: 100%;
+        height: auto;
+        color: white;
+        font-family: "Roboto", sans-serif;
+        font-size: 10px;
+      }
+      .full-continer {
+        --borderWidth: 4px;
+        background: white;
+        position: relative;
+        border-radius: 8px;
+      }
+      .full-continer:after {
+        content: "";
+        position: absolute;
+        top: calc(-1 * var(--borderWidth));
+        left: calc(-1 * var(--borderWidth));
+        height: calc(100% + var(--borderWidth) * 2);
+        width: calc(100% + var(--borderWidth) * 2);
+        background: linear-gradient(
+          60deg,
+          #f79533,
+          #f0ac24,
+          #5073b8,
+          #5073b8,
+          #7196e0,
+          #1098ad,
+          #f79533,
+          #f0ac24
+        );
+        border-radius: calc(2 * var(--borderWidth));
+        z-index: -1;
+        animation: animatedgradient 3s ease alternate infinite;
+        background-size: 300% 300%;
+      }
+
+      @keyframes animatedgradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      .checkbox-color {
+        color: black;
+      }
+
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      /* Firefox */
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+
+      .authentication-form {
+        background-color: white;
+        /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+      }
+      .div-reg-container {
+        position: relative;
+        width: 100%;
+        background-color: white;
+        border-radius: 8px 8px 0 0;
+      }
+
+      .registartion-title {
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 0;
+        background-color: #0696b8;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: white;
+        border-radius: 6px 6px 8px 8px;
+
+        font-size: 18px;
+      }
+
+      .input-group-container {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+      }
+
+      .input-group {
+        display: flex;
+        align-items: center;
+        padding-top: 13px;
+        justify-content: space-between;
+      }
+
+      .input-group input {
+        border: none;
+        outline: none;
+        border-bottom: 1px solid #bfbbbb;
+        width: 100%;
+        font-size: 15px;
+      }
+      .input-group i {
+        font-size: 16px;
+        color: #bfbbbb;
+      }
+
+      .input-group select {
+        border: none;
+        outline: none;
+        border-bottom: 1px solid #bfbbbb;
+        width: 100%;
+        font-size: 15px;
+      }
+      #full-name {
+        margin-left: 0px;
+      }
+      #email {
+        margin-left: 0px;
+      }
+      #mobile-number {
+        margin-left: 0px;
+      }
+      #states {
+        margin-left: 0px;
+      }
+      #city-input-field {
+        margin-left: 15px;
+      }
+      #course-input-field {
+        margin-left: 0px;
+      }
+      #specialization-input-field {
+        margin-left: 15px;
+      }
+
+      .button-box {
+        display: block;
+        text-align: center;
+      }
+
+      .register-button {
+        padding: 8px 18px;
+        margin-top: 5px;
+        background-color: #0696b8;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        text-transform: uppercase;
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+      }
+      .register-button:hover {
+        background-color: white;
+        color: #0696b8;
+        border: 0.5px solid #0696b8;
+      }
+
+      .disable-button {
+        padding: 8px 18px;
+        margin-top: 5px;
+        background-color: rgb(203, 201, 201);
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        text-transform: uppercase;
+        pointer-events: none;
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+      }
+
+      .grecaptcha-badge {
+        display: none !important;
+      }
+
+      .error-message {
+        margin-top: 5px;
+        margin-bottom: 0;
+        margin-left: 5px;
+        color: rgb(173, 51, 51);
+        display: none;
+      }
+
+      #api-response-error-message {
+        position: relative;
+        text-align: center;
+        color: rgb(148, 32, 32);
+        font-size: 20px;
+        display: none;
+        z-index: 2;
+      }
+
+      .input-fields-container {
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 10px;
+      }
+      .image-box {
+        display: flex;
+        justify-content: end;
+        text-align: end;
+        margin-top: -40px;
+      }
+      .bottom-background-image {
+        height: 100px;
+        width: 200px;
+        border-radius: 0 0 8px 0;
+      }
+      .flex-div-container {
+        display: flex;
+      }
+      .div-1-container {
+        width: 50%;
+      }
+      .div-2-container {
+        width: 50%;
+      }
+
+      .bottom-design-set {
+        position: absolute;
+        left: 70%;
+        right: 10%;
+        top: 69%;
+        border-radius: 0 0 8px;
+        bottom: -40%;
+        width: 197px;
+        height: 100px;
+        background: #0696b8;
+      }
+      .bottom-design-set-top {
+        position: absolute;
+        right: 0%;
+        top: 75%;
+        margin-right: 3px;
+        border-radius: 0 0 8px;
+        bottom: -45%;
+        width: 190px;
+        height: 80px;
+        border-radius: 100% 30% 8px 0;
+        background: #b83006;
+      }
+      .button-buttom-container {
+        position: relative;
+      }
+
+      @keyframes spinner {
+        0% {
+          transform: translate3d(-50%, -50%, 0) rotate(0deg);
+        }
+        100% {
+          transform: translate3d(-50%, -50%, 0) rotate(360deg);
+        }
+      }
+      #spinner-container-div {
+        position: absolute;
+        display: none;
+        z-index: 999;
+        background-color: rgb(89, 85, 85);
+        opacity: 75%;
+        height: 98.5%;
+        width: 99.7%;
+
+        border-radius: 8px;
+      }
+
+      .spin::before {
+        animation: 1.5s linear infinite spinner;
+        animation-play-state: inherit;
+        border: solid 5px #cfd0d1;
+        border-bottom-color: #1c87c9;
+        border-radius: 50%;
+        content: "";
+        height: 40px;
+        width: 40px;
+        z-index: 999;
+        position: absolute;
+        margin-top: 14vh;
+        top: 10%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        will-change: transform;
+      }
+      @media (max-width: 330px) {
+        .error-message {
+          margin-top: 5px;
+          margin-bottom: 0;
+          font-size: 11px;
+          margin-left: 5px;
+          color: rgb(173, 51, 51);
+          display: none;
+        }
+        #api-response-error-message {
+          position: relative;
+          text-align: center;
+          color: rgb(148, 32, 32);
+          font-size: 19px;
+          display: none;
+          z-index: 2;
+        }
+      }
+      @media (max-width: 500px) {
+        .image-box {
+          margin-top: -40px;
+        }
+        .bottom-background-image {
+          height: 55px;
+          width: 130px;
+          border-radius: 0 0 8px 0;
+        }
+        .spin::before {
+          animation: 1.5s linear infinite spinner;
+          animation-play-state: inherit;
+          border: solid 5px #cfd0d1;
+          border-bottom-color: #1c87c9;
+          border-radius: 50%;
+          content: "";
+          height: 40px;
+          width: 40px;
+          z-index: 999;
+          position: absolute;
+          margin-top: 15vh;
+          top: 10%;
+          left: 50%;
+          transform: translate3d(-50%, -50%, 0);
+          will-change: transform;
+        }
+      }
+      @media (min-width: 501px) and (max-width: 1240px) {
+        .spin::before {
+          animation: 1.5s linear infinite spinner;
+          animation-play-state: inherit;
+          border: solid 5px #cfd0d1;
+          border-bottom-color: #1c87c9;
+          border-radius: 50%;
+          content: "";
+          height: 40px;
+          width: 40px;
+          z-index: 999;
+          position: absolute;
+          margin-top: 15vh;
+          top: 10%;
+          left: 50%;
+          transform: translate3d(-50%, -50%, 0);
+          will-change: transform;
+        }
+      }
+      @media (min-width: 1241px) and (max-width: 2140px) {
+        .spin::before {
+          animation: 1.5s linear infinite spinner;
+          animation-play-state: inherit;
+          border: solid 5px #cfd0d1;
+          border-bottom-color: #1c87c9;
+          border-radius: 50%;
+          content: "";
+          height: 40px;
+          width: 40px;
+          z-index: 999;
+          position: absolute;
+          margin-top: 13vh;
+          top: 10%;
+          left: 50%;
+          transform: translate3d(-50%, -50%, 0);
+          will-change: transform;
+        }
+      }
+      .input-checkbox-container {
+        position: relative;
+        margin-top: 15px;
+        margin-bottom: 15px;
+      }
+      /* new code */
+      input[type="checkbox"]:checked + label::after {
+        content: "";
+        position: absolute;
+        width: 1.2ex;
+        height: 0.4ex;
+        background: rgba(0, 0, 0, 0);
+        top: 0.7ex;
+        left: 0.3ex;
+        border: 3px solid #0696b8;
+        border-top: none;
+        border-right: none;
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+      }
+
+      input[type="checkbox"] {
+        line-height: 2.1ex;
+      }
+
+      input[type="radio"],
+      input[type="checkbox"] {
+        position: absolute;
+        left: -999em;
+        top: 18px;
+      }
+
+      input[type="checkbox"] + label {
+        font-size: 12px;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      input[type="checkbox"] + label::before {
+        content: "";
+        display: inline-block;
+        vertical-align: -25%;
+        height: 2ex;
+        width: 2ex;
+        background-color: white;
+        border: 1px solid #0696b8;
+        border-radius: 4px;
+        margin-right: 0.5em;
+      }
+      .send-otp-message {
+        box-sizing: border-box;
+        display: flex;
+        align-items: flex-end;
+      }
+      .send-otp-message > button {
+        border: none;
+        background-color: #0696b8;
+        border-radius: 5px;
+        color: white;
+        font-size: 11px;
+        padding: 5px 10px;
+        white-space: nowrap;
+        cursor: pointer;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="full-continer" id="box">
+      <div id="spinner-container-div" class="spinner-container">
+        <div id="spiner-loader-div" class="spin"></div>
+      </div>
+
+      <div class="div-reg-container">
+        <h1 class="registartion-title">ENQUIRE NOW</h1>
+      </div>
+      <!-- registration form container-->
+      <div class="authentication-form">
+        <div class="input-fields-container">
+          <!-- first name and -->
+          <div class="input-group">
+            <input
+              required
+              id="full-name"
+              type="text"
+              placeholder="Full name"
+            />
+          </div>
+          <!-- error text for full name -->
+          <p id="full-name-error" class="error-message"></p>
+
+          <!-- email input field -->
+          <div class="input-group send-otp-message">
+            <input
+              required
+              id="email"
+              type="email"
+              placeholder="Enter email address"
+            />
+            <button onclick="handleClickEmailOtp()" id="email-otp-send-button">
+              Send Otp
+            </button>
+          </div>
+          <!-- error text for email -->
+          <p id="email-error" class="error-message"></p>
+          <div id="email-otp-verify-container" style="display: none">
+            <form onsubmit="">
+              <div class="input-group send-otp-message">
+                <input
+                  required
+                  id=""
+                  type="number"
+                  placeholder="Enter OTP"
+                  onkeydown="validateMobileNumber(event)"
+                />
+                <button type="submit" style="display: block" onclick="">
+                  Verify
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- mobile number input field -->
+          <div class="input-group send-otp-message">
+            <input
+              required
+              id="mobile-number"
+              type="number"
+              placeholder="Enter mobile number"
+              onkeydown="validateMobileNumber(event)"
+            />
+            <button
+              onclick="handleClickMobileOtp()"
+              id="mobile-otp-send-button"
+            >
+              Send Otp
+            </button>
+          </div>
+          <!-- error text for mobile number -->
+          <p id="mobile-number-error" class="error-message"></p>
+
+          <div id="mobile-otp-verify-container" style="display: none">
+            <form onsubmit="">
+              <div class="input-group send-otp-message">
+                <input
+                  required
+                  id=""
+                  type="number"
+                  placeholder="Enter OTP"
+                  onkeydown="validateMobileNumber(event)"
+                />
+                <button
+                  type="submit"
+                  style="display: block"
+                  onclick=""
+                  id="email-otp-verify-button"
+                >
+                  Verify
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="flex-div-container">
+            <div class="div-2-container">
+              <div class="input-group">
+                <select required id="states" name="states">
+                  <option class="state-text-color" value="State">State</option>
+                </select>
+              </div>
+              <!-- error text for state -->
+              <p id="state-error" class="error-message"></p>
+            </div>
+            <div class="div-1-container">
+              <div class="input-group">
+                <select required id="city-input-field" name="cities">
+                  <option value="City">City</option>
+                </select>
+              </div>
+              <!-- error text for city -->
+              <p id="city-error" class="error-message"></p>
+            </div>
+          </div>
+
+          <!-- state and city input field -->
+
+          <!-- course input field -->
+          <div class="input-group">
+            <select
+              required
+              id="course-input-field"
+              class="input-field"
+              name="course"
+            >
+              <option value="Course">Select Programme</option>
+            </select>
+          </div>
+          <!-- error text for course -->
+          <p id="course-error" class="error-message"></p>
+
+          <!-- checkbox -->
+          <div class="input-checkbox-container">
+            <input
+              type="checkbox"
+              name="genres"
+              value="Agree to receive information"
+              id="checkbox"
+            />
+            <label class="checkbox-color" for="checkbox"
+              >Agree to receive information</label
+            >
+          </div>
+          <!-- error text for api response error message -->
+          <p id="api-response-error-message"></p>
+          <div class="button-box">
+            <button id="register-button" class="disable-button">
+              SUBMIT
+              <i class="fa-solid fa-angle-right"></i>
+            </button>
+          </div>
+
+          <!-- register button -->
+        </div>
+        <div class="button-buttom-container">
+          <div class="image-box">
+            <img
+              class="bottom-background-image"
+              width="100%"
+              height="120px"
+              src="https://i.ibb.co/JFXRdfZ/I1-02.png"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- title -->
+    <script>
+      //mobile number validation
+      const validateMobileNumber = (event) => {
+        if (event.keyCode === 69 || event.keyCode === 189) {
+          event.preventDefault();
+        }
+      };
+
+      //recaptcha code
+      // const siteKey = "6LfFENUfAAAAAH4Dh_lx49xi6IqCA1QytPCpkrT5";
+
+      // ! initialize google recaptcha
+      // const loadScriptByURL = (id, url, callback) => {
+      //   const isScriptExist = document.getElementById(id);
+
+      //   if (!isScriptExist) {
+      //     var script = document.createElement("script");
+      //     script.type = "text/javascript";
+      //     script.src = url;
+      //     script.id = id;
+      //     script.onload = function () {
+      //       if (callback) callback();
+      //     };
+      //     document.body.appendChild(script);
+      //   }
+
+      //   if (isScriptExist && callback) callback();
+      // };
+
+      // load the script by passing the URL
+      // loadScriptByURL(
+      //   "recaptcha-key",
+      //   `https://www.google.com/recaptcha/api.js?render=${siteKey}`,
+      //   function () {
+      //     console.log("Script loaded!");
+      //   }
+      // );
+
+      //api base url
+      const apiBaseUrl = "https://prodapollo.shiftboolean.com";
+      // const apiBaseUrl = "https://dev.shiftboolean.com";
+
+      //states, cities, courses variable intialization
+      let states;
+      let cities;
+      let courses;
+
+      //input fields
+      const fullNameField = document.getElementById("full-name");
+      const emailField = document.getElementById("email");
+      const mobileNumberField = document.getElementById("mobile-number");
+      //state select field
+      const stateInputField = document.getElementById("states");
+      const cityInputField = document.getElementById("city-input-field");
+      //course field
+      const courseInputField = document.getElementById("course-input-field");
+
+      //error message field
+      const fullNameError = document.getElementById("full-name-error");
+      const emailError = document.getElementById("email-error");
+      const mobileNumberError = document.getElementById("mobile-number-error");
+      const stateError = document.getElementById("state-error");
+      const cityError = document.getElementById("city-error");
+      const courseError = document.getElementById("course-error");
+
+      const apiResponseErrorBox = document.getElementById(
+        "api-response-error-box"
+      );
+      const apiResponseErrorMessage = document.getElementById(
+        "api-response-error-message"
+      );
+      const spinner = document.getElementById("spinner-container-div");
+      const fullContinerDiv = document.getElementById("full-continer");
+
+      //initialize variables for input fields
+      let state;
+      let city;
+      let selectedState;
+      let stateIsoCode;
+      let course;
+      let singleCourse;
+      let singleSpecialization;
+      let registerInfo;
+
+      //set cities in city field
+      cityInputField.addEventListener("change", (e) => {
+        var selectedCity = e.target.value;
+      });
+
+      //set city name
+      const setCities = (options) => {
+        cities = options;
+        cityInputField.innerHTML = `<option value="City">City</option>`;
+        options.forEach((option) => {
+          cityInputField.innerHTML +=
+            "<option value='" + option.name + "'>" + option?.name + "</option>";
+        });
+        checkError();
+      };
+
+      //state field on change event function
+      stateInputField.addEventListener("change", (e) => {
+        selectedState = e.target.value;
+        const state = states.find((state) =>
+          state.name.includes(selectedState)
+        );
+
+        stateIsoCode = state?.iso2;
+
+        if (state?.iso2) {
+          fetch(`${apiBaseUrl}/countries/IN/states/${state?.iso2}/cities`)
+            .then((res) => res.json())
+            .then((data) => {
+              setCities(data);
+            });
+        }
+      });
+
+      //set state name
+      const setState = (options) => {
+        states = options;
+        options.forEach((option) => {
+          stateInputField.innerHTML +=
+            "<option  value='" +
+            option.name +
+            "'>" +
+            option?.name +
+            "</option>";
+        });
+      };
+
+      //fetch states
+      const fetchStates = () => {
+        fetch(`${apiBaseUrl}/countries/IN/states/`)
+          .then((res) => res.json())
+          .then((data) => {
+            setState(data);
+          });
+      };
+
+      fetchStates();
+
+      //course
+      const collegeId = "628dfd41ef796e8f757a5c13";
+      const courseApiUrl = `${apiBaseUrl}/course/list/?college_id=${collegeId}`;
+
+      //set course name
+      const setCourses = (options) => {
+        courses = options;
+        options.forEach((option) => {
+          courseInputField.innerHTML +=
+            "<option value='" +
+            JSON.stringify(option) +
+            "'>" +
+            option?.coursePlusSpecializations +
+            "</option>";
+        });
+      };
+
+      //course field onchange event function
+      courseInputField.addEventListener("change", (event) => {
+        var selectedCourse = JSON.parse(event.target.value);
+        if (selectedCourse !== null) {
+          singleCourse = selectedCourse?.courseName;
+          selectedCourse?.specializationName?.includes("/")
+            ? (singleSpecialization =
+                selectedCourse?.specializationName?.split("/")[0])
+            : (singleSpecialization = selectedCourse?.specializationName || "");
+        }
+      });
+
+      //fetch courses
+      const fetchCourses = () => {
+        fetch(courseApiUrl)
+          .then((res) => res.json())
+          .then((data) => {
+            const allCoursesWithSpecializations = [];
+            data?.data[0].map((course) => {
+              let index;
+              const updatedSpecializations =
+                course?.course_specialization.reduce(
+                  (accumulator, currentValue) => {
+                    if (currentValue.merge) {
+                      if (!accumulator.length) {
+                        accumulator.push({
+                          spec_name: currentValue.spec_name,
+                          merge: true,
+                        });
+                      } else {
+                        accumulator[0].spec_name +=
+                          "/" + currentValue.spec_name;
+                      }
+                    } else {
+                      accumulator.push(currentValue);
+                    }
+                    return accumulator;
+                  },
+                  []
+                );
+              const specializationLength = updatedSpecializations?.length
+                ? updatedSpecializations?.length
+                : 1;
+
+              for (index = 0; index < specializationLength; index++) {
+                if (Array.isArray(updatedSpecializations)) {
+                  allCoursesWithSpecializations.push({
+                    coursePlusSpecializations: `${course?.course_name} in ${updatedSpecializations[index]?.spec_name}`,
+                    courseName: course?.course_name,
+                    specializationName:
+                      updatedSpecializations[index]?.spec_name,
+                  });
+                } else {
+                  allCoursesWithSpecializations.push({
+                    coursePlusSpecializations: `${course?.course_name} Program`,
+                    courseName: course?.course_name,
+                  });
+                }
+              }
+            });
+            setCourses(allCoursesWithSpecializations);
+          });
+      };
+
+      fetchCourses();
+
+      // recaptcha with signup handler function
+      const handleSignUp = () => {
+        // window.grecaptcha?.ready(() => {
+        //   window.grecaptcha
+        //     .execute(siteKey, { action: "submit" })
+        //     .then((captchaToken) => {
+        // submitDataForSignup(captchaToken);
+        submitDataForSignup();
+        //     });
+        // });
+      };
+
+      //name validation regex
+      const nameFormat = /^[A-Za-z.\s]+$/;
+
+      //email validation regex
+      const mailFormat =
+        /^[\w%\+\-]+(\.[\w%\+\-]+)*@[\w%\+\-]+?\.[a-zA-Z]{2,3}$/;
+
+      const recaptchaApi = `${apiBaseUrl}/student_user_crud/verify_captcha/`;
+
+      //register button
+      const registerButton = document.getElementById("register-button");
+
+      //checking error in input field
+      let fullNameErrorMessage;
+      let emailErrorMessage;
+      let mobilleNoErrorMessage;
+      let stateErrorMessage;
+      let cityErrorMessage;
+      let courseErrorMessage;
+
+      const checkError = () => {
+        if (
+          fullNameErrorMessage?.length === 0 &&
+          emailErrorMessage?.length === 0 &&
+          mobilleNoErrorMessage?.length === 0 &&
+          stateErrorMessage?.length === 0 &&
+          stateInputField.value !== "State" &&
+          stateInputField.value?.length > 0 &&
+          cityErrorMessage?.length === 0 &&
+          cityInputField.value !== "City" &&
+          cityInputField.value?.length > 0 &&
+          courseErrorMessage?.length === 0 &&
+          courseInputField.value !== "Course" &&
+          courseInputField.value?.length > 0
+        ) {
+          //checkbox field
+          document.getElementById("checkbox").checked = true;
+          document.getElementById("checkbox").removeAttribute("disabled");
+          registerButton.classList.remove("disable-button");
+          registerButton.classList.add("register-button");
+        } else {
+          document.getElementById("checkbox").checked = false;
+          document.getElementById("checkbox").setAttribute("disabled", true);
+          registerButton.classList.remove("register-button");
+          registerButton.classList.add("disable-button");
+        }
+      };
+      checkError();
+
+      //checkbox
+      document.getElementById("checkbox").addEventListener("change", (e) => {
+        if (e.target.checked === true) {
+          registerButton.classList.remove("disable-button");
+          registerButton.classList.add("register-button");
+          document.getElementById("checkbox").checked = true;
+        } else {
+          registerButton.classList.remove("register-button");
+          registerButton.classList.add("disable-button");
+          document.getElementById("checkbox").checked = false;
+        }
+      });
+
+      //full name onchange error validation
+      fullNameField.addEventListener("input", (e) => {
+        const value = e.target.value;
+        if (value.length >= 1 && nameFormat.test(value) === false) {
+          //add full name error
+          fullNameError.innerText =
+            "Special characters and numbers are not allowed";
+          fullNameError.style.display = "block";
+          fullNameErrorMessage =
+            "Special characters and numbers are not allowed";
+          apiResponseErrorMessage.style.display = "none";
+        } else if (value.length < 2) {
+          //add full name error
+          fullNameError.innerText = "Name has at least 2 characters";
+          fullNameError.style.display = "block";
+          fullNameErrorMessage = "Name has at least 2 characters";
+
+          apiResponseErrorMessage.style.display = "none";
+        } else {
+          fullNameErrorMessage = "";
+          fullNameError.style.display = "none";
+        }
+        checkError();
+      });
+
+      let clickedEmailOtp = false;
+      let clickedMobileOtp = false;
+
+      function getAnyElementById(id) {
+        return document.getElementById(id);
+      }
+
+      function handleClickEmailOtp() {
+        console.log("clicked email otp");
+        clickedEmailOtp = true;
+        getAnyElementById("mobile-otp-send-button").style.display = "none";
+        getAnyElementById("email-otp-verify-container").style.display = "block";
+      }
+      function handleClickMobileOtp() {
+        clickedMobileOtp = true;
+        getAnyElementById("email-otp-send-button").style.display = "none";
+        getAnyElementById("mobile-otp-verify-container").style.display =
+          "block";
+      }
+
+      function showOrHideOtpButton(id, value, errorElement) {
+        const otpButton = document.getElementById(id);
+        if (value && errorElement.style.display === "none") {
+          otpButton.style.display = "block";
+        } else {
+          otpButton.style.display = "none";
+        }
+      }
+
+      //mobile number onchange error validation
+      emailField.addEventListener("input", (e) => {
+        const value = e.target.value;
+        if (mailFormat.test(value) === false) {
+          emailError.innerText = "Please provide a valid email";
+          emailError.style.display = "block";
+          emailErrorMessage = "Please provide a valid email";
+          apiResponseErrorMessage.style.display = "none";
+        } else {
+          emailError.style.display = "none";
+          emailErrorMessage = "";
+        }
+        checkError();
+        if (!clickedMobileOtp) {
+          showOrHideOtpButton("email-otp-send-button", value, emailError);
+        }
+      });
+
+      //mobile number onchange error validation
+      mobileNumberField.addEventListener("input", (e) => {
+        const value = e.target.value;
+        if (value.length !== 10) {
+          //add mobile number error
+          mobileNumberError.innerText = "Mobile number must be 10 digit";
+          mobileNumberError.style.display = "block";
+          mobilleNoErrorMessage = "Mobile number must be 10 digit";
+          apiResponseErrorMessage.style.display = "none";
+        } else {
+          mobileNumberError.style.display = "none";
+          mobilleNoErrorMessage = "";
+        }
+        checkError();
+        if (!clickedEmailOtp) {
+          showOrHideOtpButton(
+            "mobile-otp-send-button",
+            value,
+            mobileNumberError
+          );
+        }
+      });
+
+      //state name validation
+      stateInputField.addEventListener("input", (e) => {
+        const value = e.target.value;
+        if (value === "State") {
+          stateError.innerText = "Select your state";
+          stateError.style.display = "block";
+          stateErrorMessage = "Select your state";
+          apiResponseErrorMessage.style.display = "none";
+        } else {
+          stateError.style.display = "none";
+          stateErrorMessage = "";
+        }
+        checkError();
+      });
+
+      //city name validation
+      cityInputField.addEventListener("input", (e) => {
+        const value = e.target.value;
+        if (value === "City") {
+          cityError.innerText = "Select your city";
+          cityError.style.display = "block";
+          cityErrorMessage = "Select your city";
+          apiResponseErrorMessage.style.display = "none";
+        } else {
+          cityError.style.display = "none";
+          cityErrorMessage = "";
+        }
+        checkError();
+      });
+
+      //course name validation
+      courseInputField.addEventListener("input", (e) => {
+        const value = e.target.value;
+        console.log(value);
+        if (value === "Course") {
+          //add course error
+          courseError.innerText = "Select your course";
+          courseError.style.display = "block";
+          courseErrorMessage = "Select your course";
+          apiResponseErrorMessage.style.display = "none";
+        } else {
+          courseError.style.display = "none";
+          courseErrorMessage = "";
+        }
+        checkError();
+      });
+
+      // const submitDataForSignup = (captchaToken) => {
+      const submitDataForSignup = () => {
+        //* call a backend API to verify reCAPTCHA response
+        // fetch(recaptchaApi, {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify({
+        //     response: captchaToken,
+        //   }),
+        // })
+        //   .then((res) => res.json())
+        //   .then((res) => {
+        //     if (res?.message === "Human is found.") {
+        // remove api response error message
+        spinner.style.display = "block";
+        apiResponseErrorMessage.style.display = "none";
+        //input fields validation
+        if (fullName.length >= 1 && nameFormat.test(fullName) === false) {
+          //add name error
+          fullNameError.innerText =
+            "Special characters and numbers are not allowed";
+          fullNameError.style.display = "block";
+        } else if (fullName.length < 2) {
+          //add name error
+          fullNameError.innerText = "First name has at least 2 characters";
+          fullNameError.style.display = "block";
+        } else if (mailFormat.test(email) === false) {
+          // remove name error
+          fullNameError.style.display = "none";
+          //add email error
+          emailError.innerText = "Please provide a valid email address";
+          emailError.style.display = "block";
+        } else if (mobileNumber.length !== 10) {
+          // remove name and email error
+          fullNameError.style.display = "none";
+          emailError.style.display = "none";
+          //add mobile number error
+          mobileNumberError.innerText = "Mobile number must be 10 digit";
+          mobileNumberError.style.display = "block";
+        } else if (stateIsoCode === undefined || selectedState === "State") {
+          // remove name, email and mobile number error
+          fullNameError.style.display = "none";
+          emailError.style.display = "none";
+          mobileNumberError.style.display = "none";
+          //add state error
+          stateInputField.classList.add("invalid-input");
+          stateError.innerText = "Please select your state";
+          stateError.style.display = "block";
+        } else if (city === "City") {
+          // remove name, email and mobile number, state error
+          fullNameError.style.display = "none";
+          emailError.style.display = "none";
+          mobileNumberError.style.display = "none";
+          stateError.style.display = "none";
+          //add city error
+          cityError.innerText = "Please select your city";
+          cityError.style.display = "block";
+        } else if (
+          course === "Course" ||
+          singleCourse === undefined ||
+          singleCourse === "Course"
+        ) {
+          // remove name, email and mobile number, state, city error
+          fullNameError.style.display = "none";
+          emailError.style.display = "none";
+          mobileNumberError.style.display = "none";
+          stateError.style.display = "none";
+          cityError.style.display = "none";
+          //add course error
+          courseError.innerText = "Please select your course";
+          courseError.style.display = "block";
+        } else {
+          // remove name, email and mobile number, state, city, course,specialization error
+          fullNameError.style.display = "none";
+          emailError.style.display = "none";
+          mobileNumberError.style.display = "none";
+          stateError.style.display = "none";
+          cityError.style.display = "none";
+          courseError.style.display = "none";
+
+          //fetch sign up api
+          fetch(`${apiBaseUrl}/student_user_crud/signup`, {
+            method: "POST",
+            headers: {
+              accept: "application/json",
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(registerInfo),
+          })
+            .then((res) => res.json())
+            .then((result) => {
+              //if signup successfull
+              if (result.code === 200) {
+                window.open(
+                  "https://apollouniversity.edu.in/admission/thankyou.html",
+                  "_parent"
+                );
+                //clear input fields value
+                fullNameField.value = "";
+                emailField.value = "";
+                mobileNumberField.value = "";
+                stateInputField.value = "";
+                cityInputField.value = "";
+                courseInputField.value = "";
+                spinner.style.display = "none";
+              } //show the error message
+              else if (result?.detail) {
+                apiResponseErrorMessage.innerText = result?.detail;
+                apiResponseErrorMessage.style.display = "block";
+                spinner.style.display = "none";
+              }
+            })
+            .catch((error) => {
+              spinner.style.display = "none";
+
+              console.log(error.message);
+            });
+        }
+        //   } else {
+        //     window.open(
+        //       "https://dashboard.apollouniversity.edu.in",
+        //       "_parent"
+        //     );
+        //   }
+        // })
+        // .catch((error) => {
+        //   console.log(error.message);
+        // });
+      };
+      console.log(singleCourse);
+
+      // get search url details
+      var url = new URL(window.location.href);
+
+      //register button onclick handler
+      registerButton.addEventListener("click", function () {
+        //getting input fields value
+        fullName = fullNameField.value;
+        email = emailField.value;
+        mobileNumber = mobileNumberField.value;
+        state = stateInputField.value;
+        city = cityInputField.value;
+        course = courseInputField.value;
+
+        //register info object for post api
+        registerInfo = {
+          full_name: fullName,
+          email: email,
+          mobile_number: mobileNumber,
+          country_code: "IN",
+          state_code: stateIsoCode,
+          city: city,
+          course: singleCourse,
+          main_specialization: singleSpecialization,
+          college_id: collegeId,
+          utm_source: url.searchParams.get("utm_source")
+            ? url.searchParams.get("utm_source")
+            : "",
+          utm_campaign: url.searchParams.get("utm_campaign")
+            ? url.searchParams.get("utm_campaign")
+            : "",
+          utm_keyword: url.searchParams.get("utm_keyword")
+            ? url.searchParams.get("utm_keyword")
+            : "",
+          utm_medium: url.searchParams.get("utm_medium")
+            ? url.searchParams.get("utm_medium")
+            : "",
+          referal_url: url.searchParams.get("referal_url")
+            ? url.searchParams.get("referal_url")
+            : "",
+        };
+        // signup function call
+        handleSignUp();
+      });
+    </script>
+    <script
+      src="https://kit.fontawesome.com/a4b0780a32.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
